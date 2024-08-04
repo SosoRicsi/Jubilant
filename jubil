@@ -1,0 +1,45 @@
+<?php
+
+    /* 
+    *
+    *   @JubilantPHP  --- Jarkó Richárd production
+    *   command file
+    *
+    */
+
+    require __DIR__.'/vendor/autoload.php';
+
+    use Jubilant\commands\CreateNewMVC;
+    use Jubilant\commands\CreateNewMigration;
+    use Jubilant\commands\Migrate;
+    use Jubilant\commands\RunDevServer;
+    use Jubilant\commands\downloadBootstrap;
+    use Jubilant\Database;
+
+    $db = new Database();
+
+    $commands = [
+        'create-mvc'            => new CreateNewMVC(),
+        'create-migration'      => new CreateNewMigration(),
+        'migrate'               => new Migrate($db),
+        'run-dev'               => new RunDevServer(),
+        'download/bootstrap'    => new downloadBootstrap()
+    ];
+
+    $command = $argv[1] ?? null;
+    $filename = $argv[2] ?? null;
+
+    if ($command && isset($commands[$command])) {
+        if ($filename || $command === 'run-dev' || $command == 'download/bootstrap') {
+            echo $filename."\n";
+            $commands[$command]->run($filename);
+        } else {
+            echo "Usage: php console $command <filename>\n";
+        }
+    } else {
+        echo "Usage: php jubil <command>\n";
+        echo "Available commands:\n";
+        foreach ($commands as $name => $instance) {
+            echo "  - $name\n";
+        }
+    }

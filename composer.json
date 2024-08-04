@@ -1,0 +1,42 @@
+{
+    "name": "jubilant/jubilantphp",
+    "description": "A very simple PHP framework for simle web apps.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jubilant\\": "App/src/",
+            "Jubilant\\Superglobals\\": "App/src/superglobs/",
+            "Jubilant\\commands\\": "App/src/commands/",
+            "Jubilant\\Migration\\": "App/src/migrations/",
+
+            "App\\Models\\": "App/public/mvc/models/",
+            "App\\Controllers\\": "App/public/mvc/controllers/",
+            "App\\Interfaces\\": "App/src/interfaces/",
+            "App\\Middlewares\\": "App/middlewares/"
+        }
+    },
+    "authors": [
+        {
+            "name": "SosoRicsi",
+            "email": "jarkoricsi16@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-update-cmd": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "oyejorge/less.php": "v1.7.0.14"
+    },
+    "bin": [
+        "jubil"
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
